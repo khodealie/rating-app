@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 // Routes for Provider
 Route::apiResource('providers', ProviderController::class);
+
+// Nested Routes for Products under Providers
+Route::apiResource('providers.products', ProductController::class)
+    ->shallow();

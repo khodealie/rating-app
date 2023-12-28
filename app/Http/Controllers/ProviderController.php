@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProviderRequest;
-use App\Http\Requests\UpdateProviderRequest;
+use App\Http\Requests\Provider\StoreProviderRequest;
+use App\Http\Requests\Provider\UpdateProviderRequest;
 use App\Http\Resources\ProviderCollection;
 use App\Http\Resources\ProviderResource;
-use App\Services\ProviderService;
+use App\Services\Provider\ProviderService;
 use Illuminate\Http\JsonResponse;
 
 class ProviderController extends Controller
 {
 
-    public function __construct(private ProviderService $providerService)
+    public function __construct(private readonly ProviderService $providerService)
     {
     }
 

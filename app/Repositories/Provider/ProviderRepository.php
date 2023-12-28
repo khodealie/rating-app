@@ -1,29 +1,28 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Provider;
 
-use App\Models\provider;
-use App\Repositories\Interfaces\MyRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Provider;
+use Illuminate\Pagination\Paginator;
 
-class ProviderMyRepository implements MyRepositoryInterface
+class ProviderRepository implements ProviderRepositoryInterface
 {
-    public function index()
+    public function index(): Paginator
     {
         return Provider::simplePaginate(10);
     }
 
-    public function store(array $data): provider
+    public function store(array $data): Provider
     {
         return Provider::create($data);
     }
 
-    public function show($id): provider
+    public function show($id): Provider
     {
         return Provider::findOrFail($id);
     }
 
-    public function update($id, array $data): provider
+    public function update($id, array $data): Provider
     {
         $provider = $this->show($id);
         $provider->update($data);
