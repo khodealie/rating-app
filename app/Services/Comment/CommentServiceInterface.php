@@ -7,6 +7,8 @@ use Illuminate\Pagination\Paginator;
 
 interface CommentServiceInterface
 {
+    public function getApprovedCommentsCount($productId);
+
     public function index($productId): Paginator;
 
     public function store($productId, array $data): Comment;

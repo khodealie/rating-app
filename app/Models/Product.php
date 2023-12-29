@@ -30,4 +30,17 @@ class Product extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function lastThreeComments(): HasMany
+    {
+        return $this->hasMany(Comment::class)
+            ->where('is_approved', true)
+            ->latest()
+            ->limit(3);
+    }
+
+    public function votes(): HasMany
+    {
+        return $this->hasMany(Vote::class);
+    }
 }

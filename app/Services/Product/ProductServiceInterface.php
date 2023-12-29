@@ -8,7 +8,12 @@ use Illuminate\Pagination\Paginator;
 
 interface ProductServiceInterface
 {
-    public function index($providerId):Paginator;
+    public function indexFromAllProviders(): Paginator;
+
+    public function indexFromAllProvidersWithReview();
+
+    public function index($providerId): Paginator;
+
     public function store($providerId, array $data): Product;
 
     public function show($id): Product;

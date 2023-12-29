@@ -2,20 +2,24 @@
 
 namespace App\Services\EnquirySystem;
 
-use Illuminate\Support\Facades\Redis;
+use App\Services\Cache\CacheService;
+use App\Utilities\CacheKeysTemplate;
 
 class EnquiryService implements EnquiryServiceInterface
 {
-    public function getProductPrice($productId)
+    public function __construct(private readonly CacheService $cacheService)
     {
-        $cacheKey = "product_{$productId}_price";
+    }
 
-        $price = (int)Redis::get($cacheKey);
+    public function getProductPrice($productId): int
+    {
+        $cacheKey = $this->cacheService->generateKey(CacheKeysTemplate::PRODUCT_PRICE, ['productId' => $productId]);
+
+        $price = (int)$this->cacheService->get($cacheKey);
 
         if (!$price) {
             $price = rand(1, 1000) * 1000;
-
-            Redis::setex($cacheKey, 3600, $price);
+            $this->cacheService->set($cacheKey, $price, 3600);
         }
         return $price;
     }

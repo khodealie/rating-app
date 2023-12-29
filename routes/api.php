@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,13 @@ Route::apiResource('providers', ProviderController::class);
 Route::apiResource('providers.products', ProductController::class)
     ->shallow();
 
+// Route for getting products from all providers
+Route::get('products', [ProductController::class, 'indexFromAllProviders']);
+
 // Nested Routes for Comments under Products
 Route::apiResource('products.comments', CommentController::class)
+    ->shallow();
+
+// Nested Routes for Votes under Products
+Route::apiResource('products.votes', VoteController::class)
     ->shallow();

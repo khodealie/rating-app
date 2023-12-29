@@ -5,12 +5,27 @@ namespace App\Repositories\Comment;
 use App\Enums\RatingAccess;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Services\Cache\CacheService;
+use App\Utilities\CacheKeysTemplate;
 use Illuminate\Pagination\Paginator;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use App\Exceptions\PreconditionFailedException;
 
 class CommentRepository implements CommentRepositoryInterface
 {
+    public function __construct(private readonly CacheService $cacheService)
+    {
+    }
+
+    public function getApprovedCommentsCount($productId)
+    {
+        $cacheKey = $this->cacheService->generateKey(
+            CacheKeysTemplate::PRODUCT_APPROVED_COMMENT_COUNT,
+            ['productId' => $productId]
+        );
+
+        return $this->cacheService->get($cacheKey);
+    }
 
     public function index($productId): Paginator
     {
@@ -46,6 +61,12 @@ class CommentRepository implements CommentRepositoryInterface
     public function update($id, array $data): Comment
     {
         $comment = Comment::findOrFail($id);
+        $cacheKey = $this->cacheService->generateKey(
+            CacheKeysTemplate::PRODUCT_APPROVED_COMMENT_COUNT,
+            ['productId' => $comment->product_id]
+        );
+        if (!$comment->is_approved && $data['is_approved']) $this->cacheService->increment($cacheKey);
+        elseif ($comment->is_approved && !$data['is_approved']) $this->cacheService->reduce($cacheKey);
         $comment->update($data);
         return $comment;
     }

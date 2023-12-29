@@ -13,6 +13,11 @@ class CommentService implements CommentServiceInterface
     {
     }
 
+    public function getApprovedCommentsCount($productId)
+    {
+        return $this->commentRepository->getApprovedCommentsCount($productId);
+    }
+
     public function index($productId): Paginator
     {
         return $this->commentRepository->index($productId);

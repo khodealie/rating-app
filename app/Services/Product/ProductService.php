@@ -14,6 +14,16 @@ class ProductService implements ProductServiceInterface
     {
     }
 
+    public function indexFromAllProviders(): Paginator
+    {
+        return $this->productRepository->indexFromAllProviders();
+    }
+
+    public function indexFromAllProvidersWithReview()
+    {
+        return $this->productRepository->indexFromAllProvidersWithReview();
+    }
+
     public function index($providerId): Paginator
     {
         return $this->productRepository->index($providerId);
