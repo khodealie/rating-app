@@ -1,6 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Routes for Provider
+Route::apiResource('providers', ProviderController::class);
+
+// Nested Routes for Products under Providers
+Route::apiResource('providers.products', ProductController::class)
+    ->shallow();
+
+// Route for getting products from all providers
+Route::get('products', [ProductController::class, 'indexFromAllProviders']);
+
+// Nested Routes for Comments under Products
+Route::apiResource('products.comments', CommentController::class)
+    ->shallow();
+
+// Nested Routes for Votes under Products
+Route::apiResource('products.votes', VoteController::class)
+    ->shallow();
