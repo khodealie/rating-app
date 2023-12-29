@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
-use App\Http\Resources\ProductCollection;
-use App\Http\Resources\ProductResource;
-use App\Models\Product;
+use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
 use App\Services\Product\ProductService;
 use Illuminate\Http\JsonResponse;
 
@@ -37,27 +36,27 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($productId): ProductResource
+    public function show($id): ProductResource
     {
-        $product = $this->productService->show($productId);
+        $product = $this->productService->show($id);
         return new ProductResource($product);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, $productId): ProductResource
+    public function update(UpdateProductRequest $request, $id): ProductResource
     {
-        $product = $this->productService->update($productId, $request->validated());
+        $product = $this->productService->update($id, $request->validated());
         return new ProductResource($product);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($productId): JsonResponse
+    public function destroy($id): JsonResponse
     {
-        $this->productService->destroy($productId);
+        $this->productService->destroy($id);
         return response()->json(null, 204);
     }
 }

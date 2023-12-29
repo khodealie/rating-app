@@ -10,10 +10,10 @@ class EnquiryService implements EnquiryServiceInterface
     {
         $cacheKey = "product_{$productId}_price";
 
-        $price = Redis::get($cacheKey);
+        $price = (int)Redis::get($cacheKey);
 
         if (!$price) {
-            $price = rand(1000, 1000000);
+            $price = rand(1, 1000) * 1000;
 
             Redis::setex($cacheKey, 3600, $price);
         }

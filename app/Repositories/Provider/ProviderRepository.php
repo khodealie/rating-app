@@ -9,7 +9,7 @@ class ProviderRepository implements ProviderRepositoryInterface
 {
     public function index(): Paginator
     {
-        return Provider::simplePaginate(10);
+        return Provider::latest()->simplePaginate(10);
     }
 
     public function store(array $data): Provider

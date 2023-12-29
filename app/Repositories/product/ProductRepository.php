@@ -17,7 +17,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function index($providerId): Paginator
     {
         $provider = Provider::findOrFail($providerId);
-        $products = $provider->products()->where('is_enabled', true)->simplePaginate(10);
+        $products = $provider->products()->where('is_enabled', true)->latest()->simplePaginate(10);
 
         foreach ($products as $product) {
             $product->price = $this->enquiryService->getProductPrice($product->id);
@@ -35,21 +35,16 @@ class ProductRepository implements ProductRepositoryInterface
         return $product;
     }
 
-    private function firstOrFail($id): Product
-    {
-        return Product::where('id', $id)->where('is_enabled', true)->firstOrFail();
-    }
-
     public function show($id): Product
     {
-        $product = $this->firstOrFail($id);
+        $product = Product::where('id', $id)->where('is_enabled', true)->firstOrFail();
         $product->price = $this->enquiryService->getProductPrice($product->id);
         return $product;
     }
 
     public function update($id, array $data): Product
     {
-        $product = $this->firstOrFail($id);
+        $product = Product::findOrFail($id);
         $product->update($data);
         $product = $product->fresh();
         $product->price = $this->enquiryService->getProductPrice($product->id);
@@ -58,7 +53,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function destroy($id): void
     {
-        $product = $this->firstOrFail($id);
+        $product = Product::findOrFail($id);
         $product->delete();
     }
 }

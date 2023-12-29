@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Product;
 
-use App\Services\EnquirySystem\EnquiryService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,10 +21,10 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
-            'is_enabled' => $this->is_enabled,
-            'vote_enabled' => $this->vote_enabled,
-            'comment_enabled' => $this->comment_enabled,
-            'rating_access' => $this->rating_access,
+            'isEnabled' => $this->is_enabled,
+            'voteEnabled' => $this->vote_enabled,
+            'commentEnabled' => $this->comment_enabled,
+            'ratingAccess' => $this->rating_access,
         ];
     }
 }

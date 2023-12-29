@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Provider\StoreProviderRequest;
 use App\Http\Requests\Provider\UpdateProviderRequest;
-use App\Http\Resources\ProviderCollection;
-use App\Http\Resources\ProviderResource;
+use App\Http\Resources\Provider\ProviderCollection;
+use App\Http\Resources\Provider\ProviderResource;
 use App\Services\Provider\ProviderService;
 use Illuminate\Http\JsonResponse;
 

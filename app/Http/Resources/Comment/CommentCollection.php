@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Comment;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Collection;
-
-class ProductCollection extends ResourceCollection
+class CommentCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,7 +13,7 @@ class ProductCollection extends ResourceCollection
      * @return array<int|string, mixed>
      */
 
-    public static $wrap = 'products';
+    public static $wrap = 'comments';
     public function toArray(Request $request): Collection
     {
         return $this->collection;

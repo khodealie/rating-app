@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Product;
 
+use App\Enums\RatingAccess;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -23,12 +24,12 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string','max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'is_enabled' => ['boolean'],
             'vote_enabled' => ['boolean'],
             'comment_enabled' => ['boolean'],
-            'rating_access' => [Rule::in(['all','purchase_users'])],
+            'rating_access' => [Rule::enum(RatingAccess::class)],
         ];
     }
 }

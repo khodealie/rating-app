@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Comment\CommentService;
+use App\Services\Comment\CommentServiceInterface;
 use App\Services\EnquirySystem\EnquiryService;
 use App\Services\EnquirySystem\EnquiryServiceInterface;
 use App\Services\Product\ProductService;
@@ -20,6 +22,7 @@ class MyServiceProvider extends ServiceProvider
         $this->app->bind(ProviderServiceInterface::class, ProviderService::class);
         $this->app->bind(ProductServiceInterface::class, ProductService::class);
         $this->app->bind(EnquiryServiceInterface::class, EnquiryService::class);
+        $this->app->bind(CommentServiceInterface::class,CommentService::class);
     }
 
     /**

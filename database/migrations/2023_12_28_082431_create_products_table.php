@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\RatingAccess;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->boolean('is_enabled')->default(true);
             $table->boolean('vote_enabled')->default(true);
             $table->boolean('comment_enabled')->default(true);
-            $table->enum('rating_access', ['purchase_users', 'all'])->default('all');
+            $table->string('rating_access')->default(RatingAccess::ALL->value);
             $table->timestamps();
         });
     }
